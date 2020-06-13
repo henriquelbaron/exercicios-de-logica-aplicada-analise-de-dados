@@ -1,9 +1,9 @@
-import pandas as pd
+import graficoooooo as graf
+import bibliotecaaaaaa as bib
 import matplotlib.pyplot as plt
-from Atlas_BR import biblioteca as bib
 import numpy as np
 
-data = bib.carregar_csv()
+data = graf.carregar_csv()
 
 while True:
     bib.imprime_opcoes_tipo_grafico()
@@ -22,55 +22,28 @@ while True:
             cores.append(opcao_cor)
         else:
             break
-
     anos = [1991, 2000, 2010]
-    rows = []
+    df = graf.gera_novo_dataframe(anos, data, estados, tipo_informacao)
 
-    for ano in anos:
-        for estado in estados:
-            linha_filtrada = data[(data.UF == estado) & (data.ANO == ano)]
-            media = round(linha_filtrada[tipo_informacao].apply(
-                lambda x: float(x.replace(".", "").replace(",", "."))).median(), 2)
-            row = [estado, ano, media]
-            rows.append(row)
-
-    df = pd.DataFrame(columns=['estado', 'ano', 'media'])
-    for row in rows:
-        df.loc[-1] = row
-        df.index = df.index + 1
-
-
-    reacts = []
-    x = np.arange(len(anos))
-    width = 0.35
-    fig, ax = plt.subplots()
-    for i in range(len(estados)):
-        df_aux = df[(df['estado'] == estados[i])]
-        if grafico:
-            plt.plot(df_aux['ano'], df_aux['media'])
-        else:
-            if (i % 2) == 0:
-                rect = ax.bar(x - width/2, df_aux['media'], width, color=cores[i],
-                              label=bib.sigla_estado_to_nome(estados[i]))
-            else:
-                rect = ax.bar(x + width/2, df_aux['media'], width, color=cores[i],
-                              label=bib.sigla_estado_to_nome(estados[i]))
-
-            reacts.append(rect)
-
-    if not grafico:
-        ax.set_ylabel('Média')
-        ax.set_title(f'{bib.sigla_tipo_to_descricao(tipo_informacao)} x Média dos Estados')
-        ax.set_xticks(x)
-        ax.set_xticklabels(anos)
-        ax.legend()
-        for react_ in reacts:
-            bib.autolabel(react_, ax)
-        fig.tight_layout()
-    else:
+    if grafico == 1:
+        graf.gera_grafico_linhas(tipo_informacao)
+    elif grafico == 2:
+        barWidth = 0.25
+        plt.figure(figsize=(10, 5))
+        posicao = np.arange(len(estados))
+        for i in range(len(estados)):
+            df_aux = df[(df['estado'] == estados[i])]
+            plt.bar(posicao, df_aux['media'], width=barWidth, color=cores[i],
+                    label=bib.sigla_estado_to_nome(estados[i]))
+            posicao = [x + barWidth for x in posicao]
+        plt.xlabel('Anos')
+        plt.xticks([r + barWidth for r in range(len(anos))], anos)
+        plt.ylabel('Média')
         plt.title(f'{bib.sigla_tipo_to_descricao(tipo_informacao)} x Média dos Estados')
+        plt.legend()
+        plt.show()
 
-    plt.show()
+        # graf.gera_grafico_barras(anos, estados, df, cores, tipo_informacao)
 
 # estado = input('Digite a sigla do Estado')
 # media = input('Escolhe o dado que queira ver')
