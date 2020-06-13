@@ -1,12 +1,13 @@
-
+OPCAO_INVALIDA = 'Opção Inválida, escolha Outra'
 
 def escolhe_tipo_grafico(argumento):
     switcher = {
         '1': 1,
         '2': 2
     }
-    if switcher.get(argumento, True):
-        print("Escolha um opção Valida")
+    escolha_invalida = switcher.get(argumento, OPCAO_INVALIDA)
+    if escolha_invalida == OPCAO_INVALIDA:
+        print(OPCAO_INVALIDA)
         escolhe_tipo_grafico(input())
     return switcher.get(argumento)
 
@@ -26,8 +27,9 @@ def escolhe_tipo_informacao(argumento):
         '3': 'MORT1',
         '4': 'MORT5'
     }
-    if switcher.get(argumento, True):
-        print("Escolha um opção Valida")
+    escolha_invalida = switcher.get(argumento, OPCAO_INVALIDA)
+    if escolha_invalida == OPCAO_INVALIDA:
+        print(OPCAO_INVALIDA)
         escolhe_tipo_informacao(input())
     return switcher.get(argumento)
 
@@ -49,7 +51,7 @@ def sigla_tipo_to_descricao(argumento):
         'MORT1': 'Mortalidade até um ano de idade',
         'MORT5': 'Mortalidade até cinco anos de idade'
     }
-    return switcher.get(argumento, "Opção Inválida")
+    return switcher.get(argumento, OPCAO_INVALIDA)
 
 
 def escolhe_cor(argumento):
@@ -62,23 +64,24 @@ def escolhe_cor(argumento):
         '6': '#A0522D',
         '7': '#FF00FF'
     }
-    if switcher.get(argumento, True):
-        print("Escolha um opção Valida")
+    escolha_invalida = switcher.get(argumento, OPCAO_INVALIDA)
+    if escolha_invalida == OPCAO_INVALIDA:
+        print(OPCAO_INVALIDA)
         escolhe_cor(input())
     return switcher.get(argumento)
 
 
 def imprime_opcoes_cores():
     print('\n' * 50)
-    print('************* ESCOLHA UMA COR *************')
-    print('* <1> Preto                               *')
-    print('* <2> Cinza                               *')
-    print('* <3> Azul Marinho                        *')
-    print('* <4> Azul Claro                          *')
-    print('* <5> Verde                               *')
-    print('* <6> Marron                              *')
-    print('* <7> Roxo                                *')
-    print('*******************************************')
+    print('******* ESCOLHA A COR QUE REPRESENTARÁ O ESTADO NO GRÁFICO *******')
+    print('* <1> Preto                                                      *')
+    print('* <2> Cinza                                                      *')
+    print('* <3> Azul Marinho                                               *')
+    print('* <4> Azul Claro                                                 *')
+    print('* <5> Verde                                                      *')
+    print('* <6> Marron                                                     *')
+    print('* <7> Roxo                                                       *')
+    print('******************************************************************')
 
 
 def escolhe_estado(argumento):
@@ -92,8 +95,9 @@ def escolhe_estado(argumento):
         '7': 31,
         '0': 0
     }
-    if switcher.get(argumento, True):
-        print("Escolha um opção Valida")
+    escolha_invalida = switcher.get(argumento, OPCAO_INVALIDA)
+    if escolha_invalida == OPCAO_INVALIDA:
+        print(OPCAO_INVALIDA)
         escolhe_estado(input())
     return switcher.get(argumento)
 
@@ -108,7 +112,7 @@ def imprime_opcoes_estados():
     print('* <5> Espírito Santo                            *')
     print('* <6> Rio de Janeiro                            *')
     print('* <7> Minas Gerais                              *')
-    print('* <0> Gerar Grafico                             *')
+    print('* <0> Gerar Gráfico                             *')
     print('*************************************************')
 
 
@@ -122,17 +126,4 @@ def sigla_estado_to_nome(argumento):
         33: 'Rio de Janeiro',
         31: 'Minas Gerais'
     }
-    return switcher.get(argumento, "Opção Inválida")
-
-
-
-
-
-# def autolabel(rects, ax):
-#     for rect in rects:
-#         height = rect.get_height()
-#         ax.annotate('{}'.format(height),
-#                     xy=(rect.get_x() + rect.get_width() / 2, height),
-#                     xytext=(0, 3),  # 3 points vertical offset
-#                     textcoords="offset points",
-#                     ha='center', va='bottom')
+    return switcher.get(argumento, OPCAO_INVALIDA)
